@@ -1,58 +1,86 @@
-import { Component,OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-update-contact',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './update-contact.component.html',
-  styleUrl: './update-contact.component.scss'
+  styleUrls: ['./update-contact.component.scss']
 })
 export class UpdateContactComponent implements OnInit {
-  form: FormGroup;
-  storedData: any = null;
-  isEditing: boolean = false;  // Flag to toggle between view and edit mode
+  contactForm: FormGroup;
+  contactId: string | null = null;
 
-  constructor() {
-    this.form = new FormGroup({
-      nom: new FormControl('', Validators.required),
-      prenom: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      telephone: new FormControl('', Validators.required),
-      etat: new FormControl('', Validators.required),
-      message: new FormControl('', Validators.required),
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.contactForm = this.fb.group({
+      nom: ['', Validators.required],
+      prenom: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      telephone: ['', Validators.required],
+      etat: ['', Validators.required],
+      message: ['', Validators.required]
     });
   }
 
-  ngOnInit() {
-    this.loadStoredData();
+  ngOnInit(): void {
+    this.contactId = this.route.snapshot.paramMap.get('id');
+    if (this.contactId) {
+      this.loadContact(this.contactId);
+    }
   }
 
-  loadStoredData() {
-    const data = localStorage.getItem('formData');
-    if (data) {
-      this.storedData = JSON.parse(data);
-      this.form.patchValue(this.storedData);
+  loadContact(contactId: string): void {
+    if (this.isLocalStorageAvailable()) {
+      const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
+      const contact = contacts.find((c: { id: string }) => c.id === contactId);
+      if (contact) {
+        this.contactForm.patchValue(contact);
+      }
     }
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      // Enregistrer les données mises à jour dans le Local Storage
-      localStorage.setItem('formData', JSON.stringify(this.form.value));
-      this.storedData = this.form.value;  // Met à jour la vue avec les nouvelles données
-      this.isEditing = false;  // Basculer en mode affichage
+    if (this.contactForm.valid) {
+      const updatedContact = { ...this.contactForm.value, id: this.contactId };
+
+      if (this.isLocalStorageAvailable()) {
+        // Mise à jour des contacts
+        const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
+        const updatedContacts = contacts.map((contact: { id: string }) =>
+          contact.id === this.contactId ? updatedContact : contact
+        );
+
+        // Sauvegarde des contacts mis à jour dans le local storage
+        localStorage.setItem('Contacts', JSON.stringify(updatedContacts));
+      }
+
+      // Redirection vers la liste des contacts
+      this.router.navigate(['/contacts']);
     }
   }
 
-  toggleEdit() {
-    this.isEditing = !this.isEditing;  // Basculer entre mode édition et affichage
+  private isLocalStorageAvailable(): boolean {
+    try {
+      const test = 'localStorageTest';
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
-
+  retour() {
+    this.router.navigate(['/contacts']);
+  }
 }
 
-
-
-
+  
 

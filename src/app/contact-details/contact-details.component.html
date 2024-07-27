@@ -1,8 +1,20 @@
-<h2>Contact Details</h2>
-<div *ngIf="contact">
-  <p><strong>Name:</strong> {{ contact.name }}</p>
-  <p><strong>Email:</strong> {{ contact.email }}</p>
-  <p><strong>Phone:</strong> {{ contact.phone }}</p>
-  <p><strong>Description:</strong> {{ contact.description }}</p>
+<div class="container">
+  <div class="text-center mt-5">
+    <h1>Détails du contact</h1>
+  </div>
+
+  <div *ngIf="contact">
+    <div class="card mt-2 mx-auto p-4 bg-light">
+      <div class="card-body bg-light">
+        <h3>{{ contact.nom }} {{ contact.prenom }}</h3>
+        <p>Email: {{ contact.email }}</p>
+        <p>Téléphone: {{ contact.telephone }}</p>
+        <p>État: {{ contact.etat }}</p>
+        <p>Message: {{ contact.message }}</p>
+        <button (click)="update(contact.id)">Modifier</button>
+        <button (click)="delete(contact.id)">Supprimer</button>
+        <button (click)="retour()">retour</button> <br> <br>
+      </div>
+    </div>
+  </div>
 </div>
-<a routerLink="/contacts">Back to Contacts</a>

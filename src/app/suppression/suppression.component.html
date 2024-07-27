@@ -1,16 +1,19 @@
-<div>
-    <h2>Contacts</h2>
-    <div *ngFor="let contact of contacts">
-      <p>{{ contact.email }}  - {{ contact.phone }}</p>
-      <button (click)="deleteContact(contact.id)">Supprimer</button>
+<div class="container">
+  <div class="text-center mt-5">
+    <h1>Confirmation de Suppression</h1>
+  </div>
+
+  <div *ngIf="contact">
+    <div class="card mt-2 mx-auto p-4 bg-light">
+      <div class="card-body bg-light">
+        <h3>{{ contact.nom }} {{ contact.prenom }}</h3>
+        <p>Email: {{ contact.email }}</p>
+        <p>Téléphone: {{ contact.telephone }}</p>
+        <p>État: {{ contact.etat }}</p>
+        <p>Message: {{ contact.message }}</p>
+        <button (click)="deleteContact()" class="btn btn-danger">Supprimer</button>
+        <button (click)="cancel()" class="btn btn-secondary">Annuler</button>
+      </div>
     </div>
   </div>
-  
-  <div>
-    <h2>Corbeille</h2>
-    <div *ngFor="let contact of trash">
-      <p>{{ contact.email }}  - {{ contact.phone }}</p>
-      <button (click)="restoreContact(contact.id)">Restaurer</button>
-    </div>
-  </div>
-  
+</div>

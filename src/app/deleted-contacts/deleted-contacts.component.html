@@ -1,0 +1,11 @@
+<div>
+    <h2>Contacts Supprimés</h2>
+    <ul>
+      <li *ngFor="let contact of deletedContacts">
+        {{ contact.nom }} {{ contact.prenom }}
+        <button (click)="restoreContact(contact.id)">Restaurer</button>
+      </li>
+    </ul>
+    <button (click)="goBack()">Retour</button>
+  </div>
+  

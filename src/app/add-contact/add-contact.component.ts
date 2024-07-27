@@ -3,6 +3,7 @@ import { FormGroup, ReactiveFormsModule, Validators, FormControl } from '@angula
 import { CommonModule } from '@angular/common';
 import { v4 as uuidv4 } from 'uuid';
 import { RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router'; // Importer Router
 
 @Component({
   selector: 'app-add-contact',
@@ -18,7 +19,9 @@ import { RouterOutlet } from '@angular/router';
 export class AddContactComponent {
   form: FormGroup;
 
-  constructor() {
+  constructor(
+    private router: Router // Injecter Router
+  )  {
     this.form = new FormGroup({
       nom: new FormControl('', Validators.required),
       prenom: new FormControl('', Validators.required),
@@ -45,8 +48,15 @@ export class AddContactComponent {
 
       // Réinitialiser le formulaire
       this.form.reset();
+
+      // Rediriger vers la page des contacts
+      this.router.navigate(['/contacts']);
     }
   }
-
-  
+  retour() {
+    this.router.navigate(['/contacts']);
+  }
 }
+
+ 
+  
