@@ -1,9 +1,8 @@
-<!-- contacts.component.html -->
 <div *ngIf="viewingDeletedContacts">
     <button (click)="cancelViewDeleted()">Back to Contacts</button>
     <!-- Liste des contacts supprimés -->
     <ul>
-      <li *ngFor="let contact of deletedContacts">
+      <li *ngFor="let contact of filteredDeletedContacts">
         {{ contact.name }} - {{ contact.email }}
         <button (click)="restoreContact(contact)">Restore</button>
         <button (click)="permanentlyDeleteContact(contact)">Permanently Delete</button>
@@ -12,8 +11,11 @@
   </div>
   
   <div *ngIf="!viewingDeletedContacts">
+    <!-- Barre de recherche -->
+    <input type="text" [formControl]="searchControl" placeholder="Search contacts">
+  
     <!-- Formulaire d'ajout de contact -->
-    <form [formGroup]="contactForm" (ngSubmit)="addContact()">
+    <!-- <form [formGroup]="contactForm" (ngSubmit)="addContact()">
       <label for="name">Name:</label>
       <input id="name" formControlName="name">
   
@@ -24,8 +26,16 @@
       <input id="phone" formControlName="phone">
   
       <button type="submit">Add Contact</button>
-    </form>
+    </form> -->
   
     <button (click)="viewingDeletedContacts = true">View Deleted Contacts</button>
+  
+    <!-- Liste des contacts actuels -->
+    <ul>
+      <li *ngFor="let contact of filteredContacts">
+        {{ contact.name }} - {{ contact.email }}
+        <button (click)="deleteContact(contact)">Delete</button>
+      </li>
+    </ul>
   </div>
   

@@ -6,7 +6,7 @@ import { importProvidersFrom } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { bootstrapApplication } from '@angular/platform-browser';
 
-// Si vous souhaitez activer manuellement le mode production, vous pouvez décommenter la ligne suivante
+// Activer le mode production si nécessaire
 // enableProdMode();
 
 bootstrapApplication(AppComponent, {
