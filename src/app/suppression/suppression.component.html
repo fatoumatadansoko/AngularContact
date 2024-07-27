@@ -1,0 +1,16 @@
+<div>
+    <h2>Contacts</h2>
+    <div *ngFor="let contact of contacts">
+      <p>{{ contact.email }}  - {{ contact.phone }}</p>
+      <button (click)="deleteContact(contact.id)">Supprimer</button>
+    </div>
+  </div>
+  
+  <div>
+    <h2>Corbeille</h2>
+    <div *ngFor="let contact of trash">
+      <p>{{ contact.email }}  - {{ contact.phone }}</p>
+      <button (click)="restoreContact(contact.id)">Restaurer</button>
+    </div>
+  </div>
+  
