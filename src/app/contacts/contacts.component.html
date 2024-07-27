@@ -1,22 +1,24 @@
-
-  <!-- bouton de deconnexion-->
-
-  <button (click)="logout()">Logout</button>
-
-
+<div>
+  <!-- Bouton de déconnexion et ajout de contact -->
+  <button (click)="logout()">Déconnexion</button> <br> <br>
+  <button (click)="addContact()">Ajouter un contact</button> <br> <br>
   
+  <!-- Bouton pour voir les contacts supprimés -->
+  <button (click)="viewDeletedContacts()">Voir les contacts supprimés</button> <br> <br>
 
-  <div *ngIf="!viewingDeletedContacts">
-    <!-- Barre de recherche -->
-    <input type="text" [formControl]="searchControl" placeholder="Search contacts">
-  
-    
-    <!-- Liste des contacts actuels -->
-    <ul>
-      <li *ngFor="let contact of filteredContacts">
-        {{ contact.name }} - {{ contact.email }}
-        <button >Delete</button>
-      </li>
-    </ul>
-  </div>
-  
+  <!-- Barre de recherche -->
+  <input type="text" [formControl]="searchControl" placeholder="Rechercher des contacts">
+</div>
+
+<!-- Liste des contacts -->
+<div>
+  <h2>Liste des Contacts</h2>
+  <ul>
+    <li *ngFor="let contact of filteredContacts">
+      {{ contact.nom }} {{ contact.prenom }}
+      <button (click)="viewDetails(contact.id)">Voir Détails</button>
+      <button (click)="update(contact.id)">Modifier</button>
+      <button (click)="delete(contact.id)">Supprimer</button>
+    </li>
+  </ul>
+</div>

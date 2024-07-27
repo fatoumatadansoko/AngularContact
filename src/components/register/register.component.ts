@@ -51,4 +51,7 @@ export class RegisterComponent {
   generateId(): string {
     return Math.random().toString(36).substr(2, 9);
   }
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
 }  
