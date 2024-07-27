@@ -47,7 +47,7 @@ export class ContactsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadContacts();
+    // this.loadContacts();
     this.searchControl.valueChanges
       .pipe(
         debounceTime(300),
@@ -56,72 +56,72 @@ export class ContactsComponent implements OnInit {
       .subscribe();
   }
 
-  addContact() {
-    if (this.contactForm.invalid) {
-      return;
-    }
-    const newContact: Contact = {
-      id: this.generateId(),
-      ...this.contactForm.value,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      deleted: false
-    };
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    const userId = currentUser.id;
-    let contacts = JSON.parse(localStorage.getItem(`contacts_${userId}`) || '[]');
-    contacts.push(newContact);
-    localStorage.setItem(`contacts_${userId}`, JSON.stringify(contacts));
-    this.contactForm.reset();
-    this.loadContacts();
-  }
+  // addContact() {
+  //   if (this.contactForm.invalid) {
+  //     return;
+  //   }
+  //   const newContact: Contact = {
+  //     id: this.generateId(),
+  //     ...this.contactForm.value,
+  //     createdAt: new Date(),
+  //     updatedAt: new Date(),
+  //     deleted: false
+  //   };
+  //   const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+  //   const userId = currentUser.id;
+  //   let contacts = JSON.parse(localStorage.getItem(`contacts_${userId}`) || '[]');
+  //   contacts.push(newContact);
+  //   localStorage.setItem(`contacts_${userId}`, JSON.stringify(contacts));
+  //   this.contactForm.reset();
+  //   this.loadContacts();
+  // }
   
 
-  deleteContact(contact: Contact) {
-    contact.deleted = true;
-    this.deletedContacts.push(contact);
-    this.contacts = this.contacts.filter(c => c.id !== contact.id);
-    this.saveContacts();
-    this.filterContacts(this.searchControl.value);
-  }
+  // deleteContact(contact: Contact) {
+  //   contact.deleted = true;
+  //   this.deletedContacts.push(contact);
+  //   this.contacts = this.contacts.filter(c => c.id !== contact.id);
+  //   this.saveContacts();
+  //   this.filterContacts(this.searchControl.value);
+  // }
   
 
-  restoreContact(contact: Contact) {
-    contact.deleted = false;
-    this.contacts.push(contact);
-    this.deletedContacts = this.deletedContacts.filter(c => c.id !== contact.id);
-    this.saveContacts();
-    this.filterContacts(this.searchControl.value);
-  }
+  // restoreContact(contact: Contact) {
+  //   contact.deleted = false;
+  //   this.contacts.push(contact);
+  //   this.deletedContacts = this.deletedContacts.filter(c => c.id !== contact.id);
+  //   this.saveContacts();
+  //   this.filterContacts(this.searchControl.value);
+  // }
   
 
-  permanentlyDeleteContact(contact: Contact) {
-    this.deletedContacts = this.deletedContacts.filter(c => c.id !== contact.id);
-    this.saveContacts();
-  }
+  // permanentlyDeleteContact(contact: Contact) {
+  //   this.deletedContacts = this.deletedContacts.filter(c => c.id !== contact.id);
+  //   this.saveContacts();
+  // }
   
 
-  cancelViewDeleted() {
-    this.viewingDeletedContacts = false;
-  }
+  // cancelViewDeleted() {
+  //   this.viewingDeletedContacts = false;
+  // }
 
-  loadContacts() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    const userId = currentUser.id;
-    const contacts = JSON.parse(localStorage.getItem(`contacts_${userId}`) || '[]');
-    this.contacts = contacts.filter((contact: Contact) => !contact.deleted);
-    this.deletedContacts = contacts.filter((contact: Contact) => contact.deleted);
-    this.filterContacts(this.searchControl.value);
-  }
+  // loadContacts() {
+  //   const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+  //   const userId = currentUser.id;
+  //   const contacts = JSON.parse(localStorage.getItem(`contacts_${userId}`) || '[]');
+  //   this.contacts = contacts.filter((contact: Contact) => !contact.deleted);
+  //   this.deletedContacts = contacts.filter((contact: Contact) => contact.deleted);
+  //   this.filterContacts(this.searchControl.value);
+  // }
   
   
 
-  saveContacts() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    const userId = currentUser.id;
-    const allContacts = [...this.contacts, ...this.deletedContacts];
-    localStorage.setItem(`contacts_${userId}`, JSON.stringify(allContacts));
-  }
+  // saveContacts() {
+  //   const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+  //   const userId = currentUser.id;
+  //   const allContacts = [...this.contacts, ...this.deletedContacts];
+  //   localStorage.setItem(`contacts_${userId}`, JSON.stringify(allContacts));
+  // }
   
 
 
