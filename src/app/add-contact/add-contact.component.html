@@ -1,0 +1,26 @@
+<!-- <h2>Add Contact</h2>
+<form [formGroup]="contactForm" (ngSubmit)="addContact()">
+  <label for="name">Name:</label>
+  <input type="text" formControlName="name">
+  <div *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
+    Name is required
+  </div>
+
+  <label for="email">Email:</label>
+  <input type="email" formControlName="email">
+  <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+    Valid email is required
+  </div>
+
+  <label for="phone">Phone:</label>
+  <input type="text" formControlName="phone">
+  <div *ngIf="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched">
+    Phone is required
+  </div>
+
+  <label for="description">Description:</label>
+  <textarea formControlName="description"></textarea>
+
+  <button type="submit">Add Contact</button>
+</form>
+<a routerLink="/contacts">Back to Contacts</a> -->

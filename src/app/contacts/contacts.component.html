@@ -1,0 +1,19 @@
+
+  <!-- Autres éléments de la page des contacts -->
+
+  <button (click)="logout()">Logout</button>
+
+  <div *ngIf="!viewingDeletedContacts">
+    <!-- Barre de recherche -->
+    <input type="text" [formControl]="searchControl" placeholder="Search contacts">
+  
+    
+    <!-- Liste des contacts actuels -->
+    <ul>
+      <li *ngFor="let contact of filteredContacts">
+        {{ contact.name }} - {{ contact.email }}
+        <button >Delete</button>
+      </li>
+    </ul>
+  </div>
+  

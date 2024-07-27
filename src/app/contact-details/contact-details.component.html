@@ -1,0 +1,8 @@
+<h2>Contact Details</h2>
+<div *ngIf="contact">
+  <p><strong>Name:</strong> {{ contact.name }}</p>
+  <p><strong>Email:</strong> {{ contact.email }}</p>
+  <p><strong>Phone:</strong> {{ contact.phone }}</p>
+  <p><strong>Description:</strong> {{ contact.description }}</p>
+</div>
+<a routerLink="/contacts">Back to Contacts</a>
