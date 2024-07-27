@@ -9,7 +9,10 @@
       </li>
     </ul>
   </div>
-  
+  <!-- Autres éléments de la page des contacts -->
+
+  <button (click)="logout()">Logout</button>
+
   <div *ngIf="!viewingDeletedContacts">
     <!-- Barre de recherche -->
     <input type="text" [formControl]="searchControl" placeholder="Search contacts">

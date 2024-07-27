@@ -30,12 +30,15 @@ export class LoginComponent {
     const { email, password } = this.loginForm.value;
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const user = users.find((user: any) => user.email === email && user.password === password);
-
+  
     if (user) {
       localStorage.setItem('currentUser', JSON.stringify(user));
-      this.router.navigate(['/contacts']); // Redirige vers la page des contacts
+      this.router.navigate(['/contacts']);
     } else {
       alert('Invalid credentials');
     }
+  }
+  navigateToRegister() {
+    this.router.navigate(['/register']);
   }
 }

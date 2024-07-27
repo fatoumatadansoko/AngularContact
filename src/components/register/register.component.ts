@@ -40,8 +40,15 @@ export class RegisterComponent {
       alert('Email already registered');
       return;
     }
-    users.push({ name, email, password });
+    const newUser = { name, email, password, id: this.generateId() };
+    users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
+    // Initialiser les contacts pour ce nouvel utilisateur
+    localStorage.setItem(`contacts_${newUser.id}`, JSON.stringify([]));
     this.router.navigate(['/login']);
   }
-}
+  
+  generateId(): string {
+    return Math.random().toString(36).substr(2, 9);
+  }
+}  

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router'; // Importer Router
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 
@@ -34,7 +35,10 @@ export class ContactsComponent implements OnInit {
   filteredDeletedContacts: Contact[] = [];
   viewingDeletedContacts = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router // Injecter Router
+  ) {
     this.contactForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -63,11 +67,15 @@ export class ContactsComponent implements OnInit {
       updatedAt: new Date(),
       deleted: false
     };
-    this.contacts.push(newContact);
-    this.saveContacts();
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    const userId = currentUser.id;
+    let contacts = JSON.parse(localStorage.getItem(`contacts_${userId}`) || '[]');
+    contacts.push(newContact);
+    localStorage.setItem(`contacts_${userId}`, JSON.stringify(contacts));
     this.contactForm.reset();
-    this.filterContacts(this.searchControl.value);
+    this.loadContacts();
   }
+  
 
   deleteContact(contact: Contact) {
     contact.deleted = true;
@@ -76,6 +84,7 @@ export class ContactsComponent implements OnInit {
     this.saveContacts();
     this.filterContacts(this.searchControl.value);
   }
+  
 
   restoreContact(contact: Contact) {
     contact.deleted = false;
@@ -84,27 +93,37 @@ export class ContactsComponent implements OnInit {
     this.saveContacts();
     this.filterContacts(this.searchControl.value);
   }
+  
 
   permanentlyDeleteContact(contact: Contact) {
     this.deletedContacts = this.deletedContacts.filter(c => c.id !== contact.id);
     this.saveContacts();
   }
+  
 
   cancelViewDeleted() {
     this.viewingDeletedContacts = false;
   }
 
   loadContacts() {
-    const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    const userId = currentUser.id;
+    const contacts = JSON.parse(localStorage.getItem(`contacts_${userId}`) || '[]');
     this.contacts = contacts.filter((contact: Contact) => !contact.deleted);
     this.deletedContacts = contacts.filter((contact: Contact) => contact.deleted);
     this.filterContacts(this.searchControl.value);
   }
+  
+  
 
   saveContacts() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    const userId = currentUser.id;
     const allContacts = [...this.contacts, ...this.deletedContacts];
-    localStorage.setItem('contacts', JSON.stringify(allContacts));
+    localStorage.setItem(`contacts_${userId}`, JSON.stringify(allContacts));
   }
+  
+
 
   filterContacts(searchTerm: string) {
     const lowerSearchTerm = searchTerm.toLowerCase();
@@ -120,5 +139,12 @@ export class ContactsComponent implements OnInit {
 
   generateId(): string {
     return Math.random().toString(36).substr(2, 9);
+  }
+
+  logout() {
+    // Effacer les informations de l'utilisateur de localStorage
+    localStorage.removeItem('currentUser');
+    // Rediriger vers la page de connexion
+    this.router.navigate(['/login']);
   }
 }

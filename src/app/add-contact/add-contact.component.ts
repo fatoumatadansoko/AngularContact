@@ -29,9 +29,10 @@ export class AddContactComponent {
     }
     const contact = this.contactForm.value;
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+    const userId = currentUser.id;
+    const contacts = JSON.parse(localStorage.getItem(`contacts_${userId}`) || '[]');
     contacts.push({
-      id: uuidv4(),
+      id: this.generateId(),
       ...contact,
       createdAt: new Date(),
       createdBy: currentUser.email,
@@ -39,7 +40,11 @@ export class AddContactComponent {
       updatedBy: currentUser.email,
       deleted: false
     });
-    localStorage.setItem('contacts', JSON.stringify(contacts));
+    localStorage.setItem(`contacts_${userId}`, JSON.stringify(contacts));
     this.router.navigate(['/contacts']);
+  }
+
+  generateId(): string {
+    return Math.random().toString(36).substr(2, 9);
   }
 }
