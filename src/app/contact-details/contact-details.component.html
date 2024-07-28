@@ -10,60 +10,60 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
-        /* body {
+        /* Styles généraux */
+        body {
             font-family: 'Roboto', sans-serif;
             background-color: #9E9F8D;
             height: 100%;
-            
-        } */
-
+        }
+    
         .card {
             border: 1px solid #9E9F8D;
             border-radius: 15px;
         }
-
+    
         .card-body {
             padding: 2rem;
         }
-
+    
         h1, h3 {
             color: #333;
         }
-
+    
         .icon-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-bottom: 1rem;
         }
-
+    
         .user-icon {
             font-size: 6rem;
             color: #9E9F8D;
         }
-
+    
         .btn-custom {
             background-color: #9E9F8D;
             border-color: #9E9F8D;
             color: white;
             margin-right: 10px;
-            
         }
-
+    
         .btn-custom:hover {
             background-color: #7E7F6D;
             border-color: #7E7F6D;
         }
+    
         .btn-danger {
             background-color: #b40000;
-            border-color: #9E9F8D;
             border-color: #b40000;
         }
-
+    
         .btn-danger:hover {
             background-color: #b40000;
             border-color: #7E7F6D;
         }
+    
         .btn-group {
             margin-top: 20px;
             display: flex;
@@ -71,23 +71,53 @@
             justify-content: space-around;
             gap: 10px;
         }
-
+    
+        /* Animation */
         .animate__animated {
             --animate-duration: 1s;
         }
-
+    
         .animate__animated.animate__fadeInUp {
             animation-duration: 1s;
         }
-
+    
         .animate__animated.animate__fadeIn {
             animation-duration: 1s;
         }
-
+    
         .animate__animated.animate__fadeInLeft {
             animation-duration: 1s;
         }
+    
+        /* Styles spécifiques au mode desktop */
+        @media (min-width: 992px) { /* Bootstrap large screens and up */
+            h1 {
+                font-size: 3rem; /* Augmente la taille du titre principal */
+            }
+    
+            h3 {
+                font-size: 2rem; /* Augmente la taille du sous-titre */
+            }
+    
+            .user-icon {
+                font-size: 8rem; /* Augmente la taille de l'icône utilisateur */
+            }
+
+            p{
+                font-size: 20px;
+            }
+    
+            .btn-custom, .btn-danger, .btn-success {
+                font-size: 1.25rem; /* Augmente la taille du texte des boutons */
+                padding: 0.75rem 1.5rem; /* Augmente le padding des boutons */
+            }
+    
+            .btn-group {
+                gap: 15px; /* Augmente l'écart entre les boutons */
+            }
+        }
     </style>
+    
 </head>
 
 <body style="  background-color: #9E9F8D;">
@@ -108,15 +138,16 @@
                     <p class="animate__animated animate__fadeIn"><i class="fas fa-info-circle"></i> État: {{ contact.etat }}</p>
                     <p class="animate__animated animate__fadeIn"><i class="fas fa-comment"></i> Message: {{ contact.message }}</p>
                     <div class="btn-group">
+                        <button class="btn btn-custom animate__animated animate__fadeInUp" (click)="retour()">
+                            <i class="fas fa-arrow-left"></i> Retour
+                        </button>
                         <button class="btn btn-success animate__animated animate__fadeInUp" (click)="update(contact.id)">
                             <i class="fas fa-edit"></i> Modifier
                         </button>
                         <button class="btn btn-danger animate__animated animate__fadeInUp" (click)="delete(contact.id)">
                             <i class="fas fa-trash-alt"></i> Supprimer
                         </button>
-                        <button class="btn btn-custom animate__animated animate__fadeInUp" (click)="retour()">
-                            <i class="fas fa-arrow-left"></i> Retour
-                        </button>
+                        
                     </div>
                 </div>
             </div>
