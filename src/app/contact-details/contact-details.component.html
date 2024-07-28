@@ -1,20 +1,131 @@
-<div class="container">
-  <div class="text-center mt-5">
-    <h1>Détails du contact</h1>
-  </div>
+<!DOCTYPE html>
+<html lang="fr">
 
-  <div *ngIf="contact">
-    <div class="card mt-2 mx-auto p-4 bg-light">
-      <div class="card-body bg-light">
-        <h3>{{ contact.nom }} {{ contact.prenom }}</h3>
-        <p>Email: {{ contact.email }}</p>
-        <p>Téléphone: {{ contact.telephone }}</p>
-        <p>État: {{ contact.etat }}</p>
-        <p>Message: {{ contact.message }}</p>
-        <button (click)="update(contact.id)">Modifier</button>
-        <button (click)="delete(contact.id)">Supprimer</button>
-        <button (click)="retour()">retour</button> <br> <br>
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Contact</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        /* body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #9E9F8D;
+            height: 100%;
+            
+        } */
+
+        .card {
+            border: 1px solid #9E9F8D;
+            border-radius: 15px;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        h1, h3 {
+            color: #333;
+        }
+
+        .icon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .user-icon {
+            font-size: 6rem;
+            color: #9E9F8D;
+        }
+
+        .btn-custom {
+            background-color: #9E9F8D;
+            border-color: #9E9F8D;
+            color: white;
+            margin-right: 10px;
+            
+        }
+
+        .btn-custom:hover {
+            background-color: #7E7F6D;
+            border-color: #7E7F6D;
+        }
+        .btn-danger {
+            background-color: #b40000;
+            border-color: #9E9F8D;
+            border-color: #b40000;
+        }
+
+        .btn-danger:hover {
+            background-color: #b40000;
+            border-color: #7E7F6D;
+        }
+        .btn-group {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 10px;
+        }
+
+        .animate__animated {
+            --animate-duration: 1s;
+        }
+
+        .animate__animated.animate__fadeInUp {
+            animation-duration: 1s;
+        }
+
+        .animate__animated.animate__fadeIn {
+            animation-duration: 1s;
+        }
+
+        .animate__animated.animate__fadeInLeft {
+            animation-duration: 1s;
+        }
+    </style>
+</head>
+
+<body style="  background-color: #9E9F8D;">
+    <div class="container">
+        <div class="text-center mt-5 animate__animated animate__fadeInDown">
+            <h1>Détails du contact</h1>
+        </div>
+
+        <div *ngIf="contact">
+            <div class="card mt-2 mx-auto p-4 bg-light animate__animated animate__fadeInUp">
+                <div class="card-body bg-light">
+                    <div class="icon-container animate__animated animate__fadeInLeft">
+                        <i class="fas fa-user user-icon"></i>
+                        <h3> {{ contact.prenom }} {{ contact.nom }}</h3>
+                    </div>
+                    <p class="animate__animated animate__fadeIn"><i class="fas fa-envelope"></i> Email: {{ contact.email }}</p>
+                    <p class="animate__animated animate__fadeIn"><i class="fas fa-phone"></i> Téléphone: {{ contact.telephone }}</p>
+                    <p class="animate__animated animate__fadeIn"><i class="fas fa-info-circle"></i> État: {{ contact.etat }}</p>
+                    <p class="animate__animated animate__fadeIn"><i class="fas fa-comment"></i> Message: {{ contact.message }}</p>
+                    <div class="btn-group">
+                        <button class="btn btn-success animate__animated animate__fadeInUp" (click)="update(contact.id)">
+                            <i class="fas fa-edit"></i> Modifier
+                        </button>
+                        <button class="btn btn-danger animate__animated animate__fadeInUp" (click)="delete(contact.id)">
+                            <i class="fas fa-trash-alt"></i> Supprimer
+                        </button>
+                        <button class="btn btn-custom animate__animated animate__fadeInUp" (click)="retour()">
+                            <i class="fas fa-arrow-left"></i> Retour
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

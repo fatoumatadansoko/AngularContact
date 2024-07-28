@@ -47,6 +47,7 @@ export class ContactsComponent implements OnInit {
 
   ngOnInit() {
     this.loadContacts();
+    this.sortContacts(); 
     this.filteredContacts = this.contacts; // Initialiser les contacts filtrés avec la liste complète des contacts
 
     this.searchControl.valueChanges
@@ -106,4 +107,14 @@ export class ContactsComponent implements OnInit {
   addContact() {
     this.router.navigate(['/add-contact']);
   }
+  sortContacts() {
+    this.filteredContacts.sort((a, b) => {
+      const prenomA = a.prenom.toLowerCase();
+      const prenomB = b.prenom.toLowerCase();
+      if (prenomA < prenomB) return -1;
+      if (prenomA > prenomB) return 1;
+      return 0;
+    });
+  }
+
 }
