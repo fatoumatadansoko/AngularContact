@@ -1,11 +1,107 @@
-<div>
-    <h2>Contacts Supprimés</h2>
-    <ul>
-      <li *ngFor="let contact of deletedContacts">
-        {{ contact.nom }} {{ contact.prenom }}
-        <button (click)="restoreContact(contact.id)">Restaurer</button>
-      </li>
-    </ul>
-    <button (click)="goBack()">Retour</button>
-  </div>
-  
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts Supprimés</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: scale(1.02);
+        }
+
+        .contact-name {
+            font-weight: 500;
+        }
+
+        .btn-restore {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-restore:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .btn-back {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-back:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body style="background-color: #9E9F8D;">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="animate__animated animate__fadeInDown">Contacts Supprimés</h2>
+        </div>
+
+        <ul class="contact-list">
+            <li class="contact-item animate__animated animate__fadeInUp" *ngFor="let contact of deletedContacts">
+                <span class="contact-name">{{ contact.prenom }} {{ contact.nom }} </span>
+                <button class="btn-restore" (click)="restoreContact(contact.id)">
+                    <i class="fas fa-undo"></i> 
+                </button>
+            </li>
+        </ul>
+        <div class="text-center mt-4">
+            <button class="btn-back animate__animated animate__fadeInUp" (click)="goBack()">
+                <i class="fas fa-arrow-left"></i> Retour
+            </button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

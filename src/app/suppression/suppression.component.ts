@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-suppression',
@@ -48,25 +49,17 @@ export class SuppressionComponent implements OnInit {
       const updatedContacts = contacts.filter((contact: { id: string }) => contact.id !== this.contactId);
       localStorage.setItem('Contacts', JSON.stringify(updatedContacts));
 
-      this.router.navigate(['/contacts']);
-    }
-  }
-
-  restoreContact(): void {
-    if (this.isLocalStorageAvailable()) {
-      const deletedContacts = JSON.parse(localStorage.getItem('DeletedContacts') || '[]');
-      const contact = deletedContacts.find((c: { id: string }) => c.id === this.contactId);
-      if (contact) {
-        let contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
-        contacts.push(contact);
-        localStorage.setItem('Contacts', JSON.stringify(contacts));
-
-        // Remove from deleted contacts
-        const updatedDeletedContacts = deletedContacts.filter((c: { id: string }) => c.id !== this.contactId);
-        localStorage.setItem('DeletedContacts', JSON.stringify(updatedDeletedContacts));
-
+      // Affiche l'alerte de succès avec un temporisateur
+      Swal.fire({
+        title: 'Supprimé!',
+        text: 'Le contact a été supprimé.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 2000, // Durée d'affichage en millisecondes
+        timerProgressBar: true
+      }).then(() => {
         this.router.navigate(['/contacts']);
-      }
+      });
     }
   }
 
