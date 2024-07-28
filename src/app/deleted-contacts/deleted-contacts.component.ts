@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 // Assurez-vous que vous avez cette interface pour typage
 export interface Contact {
@@ -24,7 +25,6 @@ export interface Contact {
   imports: [CommonModule, FormsModule],
   templateUrl: './deleted-contacts.component.html',
   styleUrls: ['./deleted-contacts.component.scss']
- 
 })
 export class DeletedContactsComponent implements OnInit {
   deletedContacts: Contact[] = []; // Typé comme tableau de Contact
@@ -55,6 +55,18 @@ export class DeletedContactsComponent implements OnInit {
         localStorage.setItem('DeletedContacts', JSON.stringify(this.deletedContacts));
 
         this.loadDeletedContacts(); // Refresh the list
+
+        // Affiche l'alerte de succès
+        Swal.fire({
+          title: 'Restauration réussie!',
+          text: 'Le contact a été restauré.',
+          icon: 'success',
+          timer: 2000, // Durée d'affichage en millisecondes
+          timerProgressBar: true,
+          showConfirmButton: false
+        }).then(() => {
+          this.goBack(); // Redirige vers la page des contacts après l'alerte
+        });
       }
     }
   }
