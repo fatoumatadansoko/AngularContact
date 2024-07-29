@@ -49,7 +49,11 @@ export class UpdateContactComponent implements OnInit {
 
   onSubmit() {
     if (this.contactForm.valid) {
-      const updatedContact = { ...this.contactForm.value, id: this.contactId };
+      const updatedContact = {
+        ...this.contactForm.value,
+        id: this.contactId,
+        updatedAt: new Date().toISOString() // Mise à jour de updatedAt
+      };
 
       if (this.isLocalStorageAvailable()) {
         // Mise à jour des contacts
@@ -77,10 +81,8 @@ export class UpdateContactComponent implements OnInit {
       return false;
     }
   }
+
   retour() {
     this.router.navigate(['/contacts']);
   }
 }
-
-  
-

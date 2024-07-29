@@ -9,11 +9,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-   
-    
 </head>
 
-<body >
+<body>
     <div class="container">
         <div class="text-center mt-5 animate__animated animate__fadeInDown">
             <h1>Détails du contact</h1>
@@ -30,6 +28,8 @@
                     <p class="animate__animated animate__fadeIn"><i class="fas fa-phone"></i> Téléphone: {{ contact.telephone }}</p>
                     <p class="animate__animated animate__fadeIn"><i class="fas fa-info-circle"></i> État: {{ contact.etat }}</p>
                     <p class="animate__animated animate__fadeIn"><i class="fas fa-comment"></i> Message: {{ contact.message }}</p>
+                    <p class="animate__animated animate__fadeIn"><i class="fas fa-calendar-alt"></i> Créé le: {{ contact.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+                    <p class="animate__animated animate__fadeIn"><i class="fas fa-calendar-edit"></i> Modifié le: {{ contact.updatedAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
                     <div class="btn-group">
                         <button class="btn btn-custom animate__animated animate__fadeInUp" (click)="retour()">
                             <i class="fas fa-arrow-left"></i> Retour
@@ -40,7 +40,6 @@
                         <button class="btn btn-danger animate__animated animate__fadeInUp" (click)="delete(contact.id)">
                             <i class="fas fa-trash-alt"></i> Supprimer
                         </button>
-                        
                     </div>
                 </div>
             </div>

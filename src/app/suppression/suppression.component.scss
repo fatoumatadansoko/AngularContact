@@ -23,7 +23,7 @@ h1, h3 {
 }
 
 .card-body {
-    padding: 2rem;
+    padding: 10px;
 }
 
 .icon-container {
@@ -80,6 +80,9 @@ h1, h3 {
 
 .animate__animated.animate__fadeInUp {
     animation-duration: 1s;
+}
+p{
+    font-size: 18px;
 }
  /* Styles pour les écrans de bureau */
  @media (min-width: 768px) {

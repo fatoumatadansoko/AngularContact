@@ -10,7 +10,7 @@
 }
 
 .card-body {
-    padding: 2rem;
+    padding: 10px;
 }
 
 h1, h3 {
@@ -76,7 +76,9 @@ h1, h3 {
 .animate__animated.animate__fadeInLeft {
     animation-duration: 1s;
 }
-
+p{
+    font-size: 18px;
+}
 /* Styles spécifiques au mode desktop */
 @media (min-width: 992px) { /* Bootstrap large screens and up */
     h1 {

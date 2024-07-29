@@ -1,85 +1,67 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Formulaire de Contact</title>
 </head>
-
 <body>
-
     <!--Formulaire d'ajout de contact-->
     <div class="container">
         <div class="text-center mt-5">
             <h1>Formulaire de Contact</h1>
         </div>
-
-        <form action="" method="post" class="form">
+        <form (ngSubmit)="onSubmit()" [formGroup]="form">
             <div class="row">
                 <div class="col-lg-7 mx-auto">
                     <div class="card mt-2 mx-auto p-4 ">
                         <div class="card-body ">
-                            <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                                <div class="controls">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="form_name">Nom</label>
-                                                <input id="form_name" type="text" formControlName="nom" class="form-control" placeholder="Entrez votre nom" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="form_lastname">Prénom</label>
-                                                <input id="form_lastname" type="text" formControlName="prenom" class="form-control" placeholder="Entrez votre prénom" required>
-                                            </div>
+                            <div class="controls">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="form_name">Nom</label>
+                                            <input id="form_name" type="text" formControlName="nom" class="form-control" placeholder="Entrez votre nom" required>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="form_email">Email</label>
-                                                <input id="form_email" type="email" formControlName="email" class="form-control" placeholder="Entrez votre email" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="form_telephone">Téléphone</label>
-                                                <input id="form_telephone" type="number" formControlName="telephone" class="form-control" placeholder="Entrez votre numéro de téléphone" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="form_etat">État</label>
-                                                <input id="form_etat" type="text" formControlName="etat" class="form-control" placeholder="Entrez l'état" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label for="form_message">Message</label>
-                                                <textarea id="form_message" formControlName="message" rows="4" class="form-control" placeholder="Entrez votre message" required></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12 text-center boutons">
-                                            <input type="submit" class="btn btn-success btn-send pt-2 btn-block" value="Ajouter" id="ajouter">
-                                            <button type="button" class="btn" id="retour" (click)="retour()">Retour</button>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="form_lastname">Prénom</label>
+                                            <input id="form_lastname" type="text" formControlName="prenom" class="form-control" placeholder="Entrez votre prénom" required>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="form_email">Email</label>
+                                            <input id="form_email" type="email" formControlName="email" class="form-control" placeholder="Entrez votre email" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="form_telephone">Téléphone</label>
+                                            <input id="form_telephone" type="number" formControlName="telephone" class="form-control" placeholder="Entrez votre numéro de téléphone" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="form_message">Message</label>
+                                            <textarea id="form_message" formControlName="message" rows="4" class="form-control" placeholder="Entrez votre message" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-center boutons">
+                                        <input type="submit" class="btn btn-success btn-send pt-2 btn-block" value="Ajouter" id="ajouter">
+                                        <button type="button" class="btn btn-secondary" id="retour" (click)="retour()">Retour</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-
 </body>
-
 </html>
