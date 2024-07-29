@@ -1,0 +1,79 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #efd4de; /* Couleur de fond */
+    padding: 1rem;
+  
+    .login, .signup {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+  
+      form {
+        display: flex;
+        flex-direction: column;
+  
+        label {
+          margin-bottom: 0.5rem;
+          font-weight: bold;
+        }
+  
+        input {
+          margin-bottom: 1rem;
+          padding: 0.5rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+  
+          &:invalid.ng-touched {
+            border-color: red;
+          }
+        }
+  
+        div {
+          color: rgb(6, 6, 6);
+          font-size: 0.875rem;
+          margin-bottom: 1rem;
+        }
+  
+        button {
+          padding: 0.75rem;
+          border: none;
+          background-color: #9E9F8D; /* Couleur des boutons */
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          border-radius: 4px;
+          text-align: center;
+  
+          &:hover {
+            background-color: darken(#9E9F8D, 10%);
+          }
+        }
+      }
+  
+      button {
+        margin-top: 1rem;
+        background: none;
+        border: none;
+        color: #9E9F8D; /* Couleur du texte du bouton */
+        cursor: pointer;
+        text-align: center;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .login, .signup {
+      padding: 2rem;
+    }
+  }
+  

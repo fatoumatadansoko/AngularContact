@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulaire de Modification</title>
+  <style>
+    .main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #e76f51; /* Couleur de fond */
+      padding: 1rem;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
+    }
+
+    .login, .signup {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    input {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    input:invalid.ng-touched {
+      border-color: red;
+    }
+
+    div {
+      color: rgb(11, 11, 11);
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      padding: 0.75rem;
+      border: none;
+      background-color: #e76f51; /* Couleur des boutons */
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    button:hover {
+      background-color: #e76f51;
+    }
+
+    button {
+      margin-top: 1rem;
+      background: none;
+      border: none;
+      color: #e76f51; /* Couleur du texte du bouton */
+      cursor: pointer;
+      text-align: center;
+    }
+
+    button:hover {
+      text-decoration: underline;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: slideUp 0.5s ease-out;
+    }
+
+    .signup {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      border-bottom-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+    }
+
+    .signup form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .signup label {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .signup input {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .signup input:invalid.ng-touched {
+      border-color: red;
+    }
+
+    .signup div {
+      color: rgb(3, 3, 3);
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .signup button {
+      padding: 0.75rem;
+      border: none;
+      background-color: #e76f51; /* Couleur des boutons */
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .signup button:hover {
+      background-color: #e76f51;
+    }
+
+    .signup button {
+      margin-top: 1rem;
+      background: none;
+      border: none;
+      color: #e76f51; /* Couleur du texte du bouton */
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .signup button:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .login, .signup {
+        padding: 2rem;
+      }
+    }
+
+    .btn-connexion {
+      width: 20px;
+      text-align: left;
+      padding: 0.75rem; /* Ajustez la hauteur du bouton pour correspondre à votre design */
+    }
+  </style>
+</head>
+<body>
+
+<div class="main">
+  <div class="login card p-4" *ngIf="!isRegisterMode">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <h2 class="text-center mb-4">Connexion</h2>
+      
+      <div class="form-group mb-3">
+        <label for="email">Email</label>
+        <input type="email" id="email" class="form-control" formControlName="email" placeholder="Email">
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger mt-1">
+          <span *ngIf="loginForm.get('email')?.errors?.['required']">L'email est requis</span>
+          <span *ngIf="loginForm.get('email')?.errors?.['email']">Email invalide</span>
+        </div>
+      </div>
+      
+      <div class="form-group mb-3">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" class="form-control" formControlName="password" placeholder="Mot de passe">
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger mt-1">
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">Le mot de passe est requis</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-30 mb-3">Connexion</button>
+    </form>
+    <button (click)="navigateToRegister()" class="btn btn-link w-100">Pas de compte ? Inscription</button>
+  </div>
+</div>
+
+</body>
+</html>
