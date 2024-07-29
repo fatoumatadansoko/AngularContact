@@ -13,7 +13,7 @@ export interface Contact {
   telephone: string;
   etat: string;
   message: string;
-  userEmail: string; // Ajoutez cette propriété
+  userEmail: string;
 }
 
 @Component({
@@ -62,13 +62,17 @@ export class ContactsComponent implements OnInit {
   }
 
   loadContacts(): void {
-    const userEmail = localStorage.getItem('currentUserEmail');
-    if (userEmail) {
-      const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
-      this.contacts = contacts.filter((contact: any) => contact.userEmail === userEmail);
-      this.filteredContacts = this.contacts;
+    if (typeof localStorage !== 'undefined') {
+      const userEmail = localStorage.getItem('currentUserEmail');
+      if (userEmail) {
+        const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
+        this.contacts = contacts.filter((contact: any) => contact.userEmail === userEmail);
+        this.filteredContacts = this.contacts;
+      } else {
+        console.error('User not logged in');
+      }
     } else {
-      console.error('User not logged in');
+      console.error('localStorage is not available');
     }
   }
 
@@ -77,21 +81,17 @@ export class ContactsComponent implements OnInit {
   }
 
   delete(contactId: string): void {
-    const index = this.contacts.findIndex(contact => contact.id === contactId);
-    if (index !== -1) {
-      const deletedContact = this.contacts.splice(index, 1)[0];
-      this.deletedContacts.push(deletedContact);
-      localStorage.setItem('Contacts', JSON.stringify(this.contacts));
-      this.filteredContacts = this.contacts;
-    }
+    this.router.navigate(['/suppression', contactId]);
   }
 
   viewDeletedContacts(): void {
-    this.viewingDeletedContacts = !this.viewingDeletedContacts;
+    this.router.navigate(['/deleted-contacts']);
   }
 
   logout() {
-    localStorage.removeItem('currentUserEmail'); // Utilisez 'currentUserEmail' ici
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('currentUserEmail');
+    }
     this.router.navigate(['/login']);
   }
 
