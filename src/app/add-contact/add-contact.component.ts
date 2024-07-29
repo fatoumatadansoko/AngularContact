@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, Validators, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { v4 as uuidv4 } from 'uuid';
-import { RouterOutlet } from '@angular/router';
-import { Router } from '@angular/router'; // Importer Router
+import { RouterOutlet, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-contact',
@@ -19,9 +18,7 @@ import { Router } from '@angular/router'; // Importer Router
 export class AddContactComponent {
   form: FormGroup;
 
-  constructor(
-    private router: Router // Injecter Router
-  )  {
+  constructor(private router: Router) {
     this.form = new FormGroup({
       nom: new FormControl('', Validators.required),
       prenom: new FormControl('', Validators.required),
@@ -34,29 +31,21 @@ export class AddContactComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      // Générer un ID unique pour le contact
-      const contact = { ...this.form.value, id: uuidv4() };
-
-      // Récupérer les contacts existants depuis le Local Storage
-      const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
-
-      // Ajouter le nouveau contact à la liste
-      contacts.push(contact);
-
-      // Enregistrer les contacts mis à jour dans le Local Storage
-      localStorage.setItem('Contacts', JSON.stringify(contacts));
-
-      // Réinitialiser le formulaire
-      this.form.reset();
-
-      // Rediriger vers la page des contacts
-      this.router.navigate(['/contacts']);
+      const userEmail = localStorage.getItem('currentUserEmail');
+      if (userEmail) {
+        const contact = { ...this.form.value, id: uuidv4(), userEmail };
+        const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
+        contacts.push(contact);
+        localStorage.setItem('Contacts', JSON.stringify(contacts));
+        this.form.reset();
+        this.router.navigate(['/contacts']);
+      } else {
+        console.error('User not logged in');
+      }
     }
   }
+
   retour() {
     this.router.navigate(['/contacts']);
   }
 }
-
- 
-  

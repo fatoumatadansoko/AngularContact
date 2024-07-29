@@ -11,8 +11,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, ReactiveFormsModule]
 })
 export class LoginComponent {
-   // Ajoutez cette ligne pour définir la propriété
-   isRegisterMode: boolean = false;
+  isRegisterMode: boolean = false;
   loginForm: FormGroup;
 
   constructor(
@@ -37,6 +36,8 @@ export class LoginComponent {
 
     if (user) {
       localStorage.setItem('currentUser', JSON.stringify(user));
+      // Stocker l'email de l'utilisateur connecté
+      localStorage.setItem('currentUserEmail', email);
       this.router.navigate(['/contacts']);
     } else {
       alert('Invalid credentials');
