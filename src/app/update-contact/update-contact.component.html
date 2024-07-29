@@ -7,7 +7,7 @@
  
   <title>Document</title>
 </head>
-<body style="background-color: #9E9F8D;">
+<body >
 
   <form action="" method="post">
     <div class="container">
@@ -17,8 +17,8 @@
 
       <div class="row">
         <div class="col-lg-7 mx-auto">
-          <div class="card mt-2 mx-auto p-4 bg-light">
-            <div class="card-body bg-light">
+          <div class="card mt-2 mx-auto p-4 ">
+            <div class="card-body ">
               <div class="container">
                 <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
                   <div class="controls">
@@ -49,12 +49,6 @@
                           <input id="form_telephone" type="number" formControlName="telephone" class="form-control" required>
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="form_etat">État</label>
-                          <input id="form_etat" type="text" formControlName="etat" class="form-control" required>
-                        </div>
-                      </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
@@ -66,7 +60,7 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12 text-center boutons">
-                        <input type="submit" class="btn " value="Enregistrer" id="ajouter">
+                        <input type="submit" class="btn pt-2 btn-block " value="Modifier" id="ajouter">
                         <button type="button" class="btn" id="retour1" (click)="retour()">Retour</button>
                       </div>
                     </div>

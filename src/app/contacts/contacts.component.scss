@@ -1,0 +1,100 @@
+body {
+    background-color: transparent;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Ajout du CSS dans la section head */
+.contact-actions button {
+    margin-right: 10px;
+}
+
+.search-bar {
+    position: relative;
+}
+
+.search-bar input {
+    padding-left: 2.5rem;
+    border: 2px solid #0B162C;
+    border-radius: 25px;
+}
+
+.search-bar .fas {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #0B162C;
+}
+
+.btn-primary {
+    background-color: #0B162C;
+    border-color: #0B162C;
+}
+
+.btn-primary:hover {
+    background-color: #0B162C;
+    border-color: #0B162C;
+}
+
+.btn-info {
+    background-color: #0B162C;
+    color: white;
+    border-color: #0B162C;
+}
+
+.btn-info:hover {
+    background-color: #0B162C;
+    color: white;
+    border-color: #0B162C;
+}
+
+.btn-danger {
+    background-color: #b40000;
+    border-color: #0B162C;
+    border-color: #b40000;
+}
+
+.btn-danger:hover {
+    background-color: #b40000;
+    border-color: #7E7F6D;
+}
+
+.btn-warning {
+    background-color: #0B162C;
+    border-color: #0B162C;
+    color: white;
+    text-align: center;
+}
+
+.btn-warning:hover {
+    background-color: #0B162C;
+    color: white;
+    border-color: #0B162C;
+}
+
+/* Styles pour les écrans de bureau */
+@media (min-width: 768px) {
+    .btn .fas {
+        font-size: 1.5rem;
+    }
+
+    .search-bar input {
+        font-size: 1.2rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+    p{
+        font-size: 20px;
+    }
+
+    .list-group-item {
+        font-size: 1.2rem;
+    }
+
+    .btn-info, .btn-danger, .btn-warning {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+    }
+}

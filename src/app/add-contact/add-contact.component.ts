@@ -3,7 +3,7 @@ import { FormGroup, ReactiveFormsModule, Validators, FormControl } from '@angula
 import { CommonModule } from '@angular/common';
 import { v4 as uuidv4 } from 'uuid';
 import { RouterOutlet } from '@angular/router';
-import { Router } from '@angular/router'; // Importer Router
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-contact',
@@ -20,22 +20,26 @@ export class AddContactComponent {
   form: FormGroup;
 
   constructor(
-    private router: Router // Injecter Router
-  )  {
+    private router: Router
+  ) {
     this.form = new FormGroup({
       nom: new FormControl('', Validators.required),
       prenom: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       telephone: new FormControl('', Validators.required),
-      etat: new FormControl('', Validators.required),
       message: new FormControl('', Validators.required),
     });
   }
 
   onSubmit() {
     if (this.form.valid) {
-      // Générer un ID unique pour le contact
-      const contact = { ...this.form.value, id: uuidv4() };
+      // Générer un ID unique pour le contact, initialiser l'état à 'actif' et ajouter le champ createdAt
+      const contact = { 
+        ...this.form.value, 
+        id: uuidv4(), 
+        etat: 'actif',
+        createdAt: new Date().toISOString() // Ajouter le champ createdAt avec la date et l'heure actuelles
+      };
 
       // Récupérer les contacts existants depuis le Local Storage
       const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
@@ -53,10 +57,8 @@ export class AddContactComponent {
       this.router.navigate(['/contacts']);
     }
   }
+
   retour() {
     this.router.navigate(['/contacts']);
   }
 }
-
- 
-  

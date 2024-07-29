@@ -1,7 +1,9 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
+}
+h1{
+    font-size: 25px;
+    font-weight: bold;
 }
 #ajouter, #retour {
     font-weight: bold;
@@ -12,14 +14,14 @@ body {
 }
 
 #ajouter {
-    background-color: #9E9F8D;
+    background-color: #0B162C;
     color: white;
     border: none;
     margin-left: 0; /* Retirer la marge gauche pour l'aligner avec le bouton Retour */
 }
 
 #ajouter:hover {
-    background-color: #7E7F6D;
+    background-color: #0B162C;
 }
 
 #retour {
@@ -35,6 +37,16 @@ body {
 .form-group{
     margin-bottom: 10px;
 }
+input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 18px;
+  }
  /* Styles pour les écrans de bureau */
  @media (min-width: 768px) {
     .boutons{

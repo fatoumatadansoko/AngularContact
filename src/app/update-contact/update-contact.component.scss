@@ -1,31 +1,34 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
 }
-
+h1{
+    font-size: 25px;
+    font-weight: bold;
+}
 #ajouter, #retour1 {
     font-weight: bold;
+    margin-top: 30px;
     width: 150px;
     height: 40px;
     border-radius: 10px;
-    margin-top: 30px;
 }
 
 #ajouter {
-    background-color: #9E9F8D;
+    background-color: #0B162C;
     color: white;
     border: none;
+    margin-left: 0; /* Retirer la marge gauche pour l'aligner avec le bouton Retour */
 }
 
 #ajouter:hover {
-    background-color: #7E7F6D;
+    background-color: #0B162C;
 }
 
 #retour1 {
     border: solid black 1px;
     background-color: white;
     color: black;
+    margin-left: 10px; /* Espacement entre les deux boutons */
 }
 
 #retour1:hover {
@@ -34,18 +37,24 @@ body {
 .form-group{
     margin-bottom: 10px;
 }
-.boutons{
-    gap: 20px;
-}
-/* Styles pour les écrans de bureau */
-@media (min-width: 768px) {
-    .boutons {
-        margin-top: 20px;
+input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 18px;
+  }
+ /* Styles pour les écrans de bureau */
+ @media (min-width: 768px) {
+    .boutons{
         display: flex;
         align-items: center;
-        justify-content: space-around; /* Centre les boutons horizontalement */
+        justify-content: space-around;
     }
-    label{
+      label{
         font-size: 20px;
       }
-}
+     }
