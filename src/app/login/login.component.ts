@@ -8,9 +8,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [ReactiveFormsModule, CommonModule]
+  imports: [CommonModule, ReactiveFormsModule]
 })
 export class LoginComponent {
+   // Ajoutez cette ligne pour définir la propriété
+   isRegisterMode: boolean = false;
   loginForm: FormGroup;
 
   constructor(
@@ -25,12 +27,14 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
       return;
     }
+
     const { email, password } = this.loginForm.value;
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const user = users.find((user: any) => user.email === email && user.password === password);
-  
+
     if (user) {
       localStorage.setItem('currentUser', JSON.stringify(user));
       this.router.navigate(['/contacts']);
@@ -38,6 +42,7 @@ export class LoginComponent {
       alert('Invalid credentials');
     }
   }
+
   navigateToRegister() {
     this.router.navigate(['/register']);
   }
