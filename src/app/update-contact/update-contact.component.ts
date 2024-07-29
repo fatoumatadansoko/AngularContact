@@ -49,10 +49,13 @@ export class UpdateContactComponent implements OnInit {
 
   onSubmit() {
     if (this.contactForm.valid) {
+      const currentUserEmail = localStorage.getItem('currentUserEmail');
       const updatedContact = {
         ...this.contactForm.value,
         id: this.contactId,
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
+        userEmail: currentUserEmail // Assurez-vous d'ajouter ce champ
+
       };
 
       if (this.isLocalStorageAvailable()) {

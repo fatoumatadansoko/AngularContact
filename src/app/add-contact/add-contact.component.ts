@@ -30,36 +30,31 @@ export class AddContactComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      const userEmail = localStorage.getItem('currentUserEmail');
 
-      if (userEmail) {
+      const currentUserEmail = localStorage.getItem('currentUserEmail');
+      if (currentUserEmail) {
+
         const contact = { 
           ...this.form.value, 
           id: uuidv4(), 
           etat: 'actif',
-          createdAt: new Date().toISOString(), // Ajouter le champ createdAt avec la date et l'heure actuelles
-          userEmail
+
+          createdAt: new Date().toISOString(),
+          userEmail: currentUserEmail // Assurez-vous d'ajouter ce champ
         };
-
-        // Récupérer les contacts existants depuis le Local Storage
+        
         const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
-
-        // Ajouter le nouveau contact à la liste
         contacts.push(contact);
-
-        // Enregistrer les contacts mis à jour dans le Local Storage
         localStorage.setItem('Contacts', JSON.stringify(contacts));
-
-        // Réinitialiser le formulaire
         this.form.reset();
 
-        // Rediriger vers la page des contacts
         this.router.navigate(['/contacts']);
       } else {
         console.error('User not logged in');
       }
     }
   }
+  
 
   retour() {
     this.router.navigate(['/contacts']);
