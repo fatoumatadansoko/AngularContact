@@ -10,12 +10,10 @@ export interface Contact {
   nom: string;
   prenom: string;
   email: string;
-  phone: string;
-  state?: string;
-  createdAt?: Date;
-  createdBy?: string;
-  updatedAt?: Date;
-  updatedBy?: string;
+  telephone: string;
+  etat: string;
+  message: string;
+  userEmail: string; // Ajoutez cette propriété
 }
 
 @Component({
@@ -34,10 +32,7 @@ export class ContactsComponent implements OnInit {
   filteredDeletedContacts: Contact[] = [];
   viewingDeletedContacts = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router
-  ) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.contactForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -47,14 +42,10 @@ export class ContactsComponent implements OnInit {
 
   ngOnInit() {
     this.loadContacts();
-    this.sortContacts(); 
-    this.filteredContacts = this.contacts; // Initialiser les contacts filtrés avec la liste complète des contacts
-
+    this.sortContacts();
+    this.filteredContacts = this.contacts;
     this.searchControl.valueChanges
-      .pipe(
-        debounceTime(300),
-        map(value => this.filterContacts(value))
-      )
+      .pipe(debounceTime(300), map(value => this.filterContacts(value)))
       .subscribe();
   }
 
@@ -71,42 +62,43 @@ export class ContactsComponent implements OnInit {
   }
 
   loadContacts(): void {
-    if (typeof localStorage !== 'undefined') {
-      const contacts = localStorage.getItem('Contacts');
-      if (contacts) {
-        this.contacts = JSON.parse(contacts);
-        this.filteredContacts = this.contacts; // Mettre à jour les contacts filtrés après le chargement
-      }
+    const userEmail = localStorage.getItem('currentUserEmail');
+    if (userEmail) {
+      const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
+      this.contacts = contacts.filter((contact: any) => contact.userEmail === userEmail);
+      this.filteredContacts = this.contacts;
     } else {
-      console.error("localStorage is not available.");
+      console.error('User not logged in');
     }
   }
 
   viewDetails(contactId: string): void {
     this.router.navigate(['/contact-details', contactId]);
   }
-  update(contactId: string): void {
-    this.router.navigate(['/update-contact', contactId]);
-  }
+
   delete(contactId: string): void {
-    this.router.navigate(['/suppression', contactId]);
+    const index = this.contacts.findIndex(contact => contact.id === contactId);
+    if (index !== -1) {
+      const deletedContact = this.contacts.splice(index, 1)[0];
+      this.deletedContacts.push(deletedContact);
+      localStorage.setItem('Contacts', JSON.stringify(this.contacts));
+      this.filteredContacts = this.contacts;
+    }
   }
+
   viewDeletedContacts(): void {
-    this.router.navigate(['/deleted-contacts']);
+    this.viewingDeletedContacts = !this.viewingDeletedContacts;
   }
 
   logout() {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.removeItem('currentUser');
-    } else {
-      console.error("localStorage is not available.");
-    }
+    localStorage.removeItem('currentUserEmail'); // Utilisez 'currentUserEmail' ici
     this.router.navigate(['/login']);
   }
 
   addContact() {
     this.router.navigate(['/add-contact']);
   }
+
   sortContacts() {
     this.filteredContacts.sort((a, b) => {
       const prenomA = a.prenom.toLowerCase();
@@ -116,5 +108,4 @@ export class ContactsComponent implements OnInit {
       return 0;
     });
   }
-
 }
