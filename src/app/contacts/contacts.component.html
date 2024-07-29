@@ -15,12 +15,13 @@
         <div class="d-flex justify-content-between mb-3">
             <button class="btn btn-danger" (click)="logout()">
 
-                <i class="fas fa-sign-out-alt"></i> Déconnexion
+                <i class="fas fa-sign-out-alt"></i> 
 
             </button>
-            <span class="text-dark mx-3">Hello {{ currentUserName }}</span> <!-- Afficher le nom de l'utilisateur -->
+           <h3> <span class="text-dark mx-3"> {{ currentUserName }}</span></h3> <!-- Afficher le nom de l'utilisateur -->
             <button class="btn btn-primary" (click)="addContact()">
 
+                <i class="fas fa-plus"></i> 
 
             </button>
         </div>
@@ -47,6 +48,7 @@
                 </div>
             </li>
         </ul>
+
         
         <!-- Bouton pour voir les contacts supprimés -->
         <div class="text-center">
