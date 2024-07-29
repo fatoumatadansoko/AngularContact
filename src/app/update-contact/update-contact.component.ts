@@ -49,24 +49,23 @@ export class UpdateContactComponent implements OnInit {
 
   onSubmit() {
     if (this.contactForm.valid) {
+      const currentUserEmail = localStorage.getItem('currentUserEmail');
       const updatedContact = {
         ...this.contactForm.value,
         id: this.contactId,
-        updatedAt: new Date().toISOString() // Mise à jour de updatedAt
+        updatedAt: new Date().toISOString(),
+        userEmail: currentUserEmail // Assurez-vous d'ajouter ce champ
       };
 
       if (this.isLocalStorageAvailable()) {
-        // Mise à jour des contacts
         const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
         const updatedContacts = contacts.map((contact: { id: string }) =>
           contact.id === this.contactId ? updatedContact : contact
         );
 
-        // Sauvegarde des contacts mis à jour dans le local storage
         localStorage.setItem('Contacts', JSON.stringify(updatedContacts));
       }
 
-      // Redirection vers la liste des contacts
       this.router.navigate(['/contacts']);
     }
   }

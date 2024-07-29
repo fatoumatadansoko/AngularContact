@@ -33,30 +33,27 @@ export class AddContactComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      // Générer un ID unique pour le contact, initialiser l'état à 'actif' et ajouter le champ createdAt
-      const contact = { 
-        ...this.form.value, 
-        id: uuidv4(), 
-        etat: 'actif',
-        createdAt: new Date().toISOString() // Ajouter le champ createdAt avec la date et l'heure actuelles
-      };
-
-      // Récupérer les contacts existants depuis le Local Storage
-      const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
-
-      // Ajouter le nouveau contact à la liste
-      contacts.push(contact);
-
-      // Enregistrer les contacts mis à jour dans le Local Storage
-      localStorage.setItem('Contacts', JSON.stringify(contacts));
-
-      // Réinitialiser le formulaire
-      this.form.reset();
-
-      // Rediriger vers la page des contacts
-      this.router.navigate(['/contacts']);
+      const currentUserEmail = localStorage.getItem('currentUserEmail');
+      if (currentUserEmail) {
+        const contact = { 
+          ...this.form.value, 
+          id: uuidv4(), 
+          etat: 'actif',
+          createdAt: new Date().toISOString(),
+          userEmail: currentUserEmail // Assurez-vous d'ajouter ce champ
+        };
+        
+        const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
+        contacts.push(contact);
+        localStorage.setItem('Contacts', JSON.stringify(contacts));
+        this.form.reset();
+        this.router.navigate(['/contacts']);
+      } else {
+        console.error('User not logged in');
+      }
     }
   }
+  
 
   retour() {
     this.router.navigate(['/contacts']);

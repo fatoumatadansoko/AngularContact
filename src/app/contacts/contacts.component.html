@@ -10,15 +10,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
-<body >
+<body>
     <div class="container mt-3">
         <!-- Bouton de déconnexion et ajout de contact -->
         <div class="d-flex justify-content-between mb-3">
             <button class="btn btn-danger" (click)="logout()">
-                <i class="fas fa-sign-out-alt"></i> 
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
             </button>
+            <span class="text-dark mx-3">Hello {{ currentUserName }}</span> <!-- Afficher le nom de l'utilisateur -->
             <button class="btn btn-primary" (click)="addContact()">
-                <i class="fas fa-plus"></i> 
+                <i class="fas fa-plus"></i> Ajouter un contact
             </button>
         </div>
 
@@ -45,7 +46,7 @@
                 </div>
             </li>
         </ul>
-
+        
         <!-- Bouton pour voir les contacts supprimés -->
         <div class="text-center">
             <button class="btn btn-warning d-flex align-items-center justify-content-center" (click)="viewDeletedContacts()">
