@@ -28,18 +28,22 @@ export interface Contact {
 })
 export class DeletedContactsComponent implements OnInit {
   deletedContacts: Contact[] = []; // Typé comme tableau de Contact
+  currentUserName: string = '';
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.loadDeletedContacts();
+    // Récupérer le nom de l'utilisateur depuis le localStorage
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    this.currentUserName = currentUser.name || 'Utilisateur';
   }
 
   loadDeletedContacts(): void {
-    if (this.isLocalStorageAvailable()) {
-      this.deletedContacts = JSON.parse(localStorage.getItem('DeletedContacts') || '[]');
-      console.log('Contacts supprimés:', this.deletedContacts); // Ajouter cette ligne pour déboguer
-    }
+    const deletedContacts = JSON.parse(localStorage.getItem('DeletedContacts') || '[]');
+    console.log('Loaded Deleted Contacts:', deletedContacts);
+    this.deletedContacts = deletedContacts.filter((contact: Contact) => contact.createdBy === this.currentUserName);
+    console.log('Filtered Deleted Contacts:', this.deletedContacts);
   }
 
   restoreContact(contactId: string): void {

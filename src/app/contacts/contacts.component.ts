@@ -13,7 +13,7 @@ export interface Contact {
   telephone: string;
   etat: string;
   message: string;
-  userEmail: string; // Ajoutez cette propriété
+  createdBy: string;
 }
 
 @Component({
@@ -31,6 +31,7 @@ export class ContactsComponent implements OnInit {
   filteredContacts: Contact[] = [];
   filteredDeletedContacts: Contact[] = [];
   viewingDeletedContacts = false;
+  currentUserName: string = '';
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.contactForm = this.fb.group({
@@ -47,6 +48,10 @@ export class ContactsComponent implements OnInit {
     this.searchControl.valueChanges
       .pipe(debounceTime(300), map(value => this.filterContacts(value)))
       .subscribe();
+
+    // Récupérer le nom de l'utilisateur depuis le localStorage
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    this.currentUserName = currentUser.name || 'Utilisateur';
   }
 
   filterContacts(searchTerm: string) {
@@ -62,14 +67,10 @@ export class ContactsComponent implements OnInit {
   }
 
   loadContacts(): void {
-    const userEmail = localStorage.getItem('currentUserEmail');
-    if (userEmail) {
-      const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
-      this.contacts = contacts.filter((contact: any) => contact.userEmail === userEmail);
-      this.filteredContacts = this.contacts;
-    } else {
-      console.error('User not logged in');
-    }
+    const currentUserEmail = localStorage.getItem('currentUserEmail');
+    const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
+    this.contacts = contacts.filter((contact: Contact) => contact.createdBy === currentUserEmail);
+    this.filteredContacts = this.contacts;
   }
 
   viewDetails(contactId: string): void {
@@ -91,7 +92,8 @@ export class ContactsComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('currentUserEmail'); // Utilisez 'currentUserEmail' ici
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUserEmail');
     this.router.navigate(['/login']);
   }
 

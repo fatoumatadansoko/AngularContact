@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, ReactiveFormsModule]
 })
 export class LoginComponent {
-  isRegisterMode: boolean = false;
+  isRegisterMode: boolean = false; // Ajoutez cette ligne
   loginForm: FormGroup;
 
   constructor(
@@ -36,7 +36,6 @@ export class LoginComponent {
 
     if (user) {
       localStorage.setItem('currentUser', JSON.stringify(user));
-      // Stocker l'email de l'utilisateur connecté
       localStorage.setItem('currentUserEmail', email);
       this.router.navigate(['/contacts']);
     } else {
@@ -46,5 +45,9 @@ export class LoginComponent {
 
   navigateToRegister() {
     this.router.navigate(['/register']);
+  }
+
+  toggleMode() {
+    this.isRegisterMode = !this.isRegisterMode;
   }
 }
