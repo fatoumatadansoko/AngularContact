@@ -51,9 +51,11 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+           "styles": [
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "src/styles.scss"
+],
+
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
@@ -124,5 +126,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "d63b0d28-1120-4b61-9da9-4a8b5fcda4bb"
   }
 }

@@ -1,0 +1,51 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+#ajouter, #retour1 {
+    font-weight: bold;
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+#ajouter {
+    background-color: #9E9F8D;
+    color: white;
+    border: none;
+}
+
+#ajouter:hover {
+    background-color: #7E7F6D;
+}
+
+#retour1 {
+    border: solid black 1px;
+    background-color: white;
+    color: black;
+}
+
+#retour1:hover {
+    background-color: #f0f0f0; /* Couleur au survol pour le bouton Retour */
+}
+.form-group{
+    margin-bottom: 10px;
+}
+.boutons{
+    gap: 20px;
+}
+/* Styles pour les écrans de bureau */
+@media (min-width: 768px) {
+    .boutons {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around; /* Centre les boutons horizontalement */
+    }
+    label{
+        font-size: 20px;
+      }
+}
