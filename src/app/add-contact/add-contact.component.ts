@@ -24,26 +24,37 @@ export class AddContactComponent {
       prenom: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       telephone: new FormControl('', Validators.required),
-      etat: new FormControl('', Validators.required),
       message: new FormControl('', Validators.required),
     });
   }
 
   onSubmit() {
     if (this.form.valid) {
-      const userEmail = localStorage.getItem('currentUserEmail');
-      if (userEmail) {
-        const contact = { ...this.form.value, id: uuidv4(), userEmail };
+
+      const currentUserEmail = localStorage.getItem('currentUserEmail');
+      if (currentUserEmail) {
+
+        const contact = { 
+          ...this.form.value, 
+          id: uuidv4(), 
+          etat: 'actif',
+
+          createdAt: new Date().toISOString(),
+          userEmail: currentUserEmail // Assurez-vous d'ajouter ce champ
+        };
+        
         const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
         contacts.push(contact);
         localStorage.setItem('Contacts', JSON.stringify(contacts));
         this.form.reset();
+
         this.router.navigate(['/contacts']);
       } else {
         console.error('User not logged in');
       }
     }
   }
+  
 
   retour() {
     this.router.navigate(['/contacts']);

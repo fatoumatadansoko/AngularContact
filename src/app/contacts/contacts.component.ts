@@ -10,11 +10,17 @@ export interface Contact {
   nom: string;
   prenom: string;
   email: string;
-  telephone: string;
-  etat: string;
+
+  phone: string; // Assurez-vous que cela correspond à "telephone" dans le formulaire
+  state?: string; // Assurez-vous que cela correspond à "etat" dans le formulaire
+  createdAt?: Date;
+  createdBy?: string;
+  updatedAt?: Date;
+  updatedBy?: string;
   message: string;
-  userEmail: string; // Ajoutez cette propriété
+  userEmail: string;
 }
+
 
 @Component({
   selector: 'app-contacts',
@@ -31,6 +37,7 @@ export class ContactsComponent implements OnInit {
   filteredContacts: Contact[] = [];
   filteredDeletedContacts: Contact[] = [];
   viewingDeletedContacts = false;
+  currentUserName: string = '';
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.contactForm = this.fb.group({
@@ -41,13 +48,28 @@ export class ContactsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadContacts();
-    this.sortContacts();
-    this.filteredContacts = this.contacts;
-    this.searchControl.valueChanges
-      .pipe(debounceTime(300), map(value => this.filterContacts(value)))
-      .subscribe();
+
+    if (this.isLocalStorageAvailable()) {
+      this.loadContacts();
+      this.sortContacts();
+      this.filteredContacts = this.contacts; // Initialiser les contacts filtrés avec la liste complète des contacts
+  
+      this.searchControl.valueChanges
+        .pipe(
+          debounceTime(300),
+          map(value => this.filterContacts(value))
+        )
+        .subscribe();
+  
+      // Récupérer le nom de l'utilisateur depuis le localStorage
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      this.currentUserName = currentUser.name || 'Utilisateur';
+    } else {
+      console.error('localStorage is not available.');
+    }
+
   }
+  
 
   filterContacts(searchTerm: string) {
     const lowerSearchTerm = searchTerm.toLowerCase();
@@ -62,36 +84,51 @@ export class ContactsComponent implements OnInit {
   }
 
   loadContacts(): void {
+
     const userEmail = localStorage.getItem('currentUserEmail');
     if (userEmail) {
       const contacts = JSON.parse(localStorage.getItem('Contacts') || '[]');
-      this.contacts = contacts.filter((contact: any) => contact.userEmail === userEmail);
-      this.filteredContacts = this.contacts;
+      this.contacts = contacts.filter((contact: Contact) => contact.userEmail === userEmail);
+      this.filteredContacts = [...this.contacts]; // Utilisez un nouvel array pour éviter les références directes
+      console.log('Contacts loaded:', this.contacts); // Debugging line
     } else {
       console.error('User not logged in');
+
     }
   }
+  
+  
+  
+  
+
 
   viewDetails(contactId: string): void {
     this.router.navigate(['/contact-details', contactId]);
   }
 
+
+  update(contactId: string): void {
+    this.router.navigate(['/update-contact', contactId]);
+  }
+
+
   delete(contactId: string): void {
-    const index = this.contacts.findIndex(contact => contact.id === contactId);
-    if (index !== -1) {
-      const deletedContact = this.contacts.splice(index, 1)[0];
-      this.deletedContacts.push(deletedContact);
-      localStorage.setItem('Contacts', JSON.stringify(this.contacts));
-      this.filteredContacts = this.contacts;
-    }
+    this.router.navigate(['/suppression', contactId]);
   }
 
   viewDeletedContacts(): void {
-    this.viewingDeletedContacts = !this.viewingDeletedContacts;
+    this.router.navigate(['/deleted-contacts']);
   }
 
   logout() {
-    localStorage.removeItem('currentUserEmail'); // Utilisez 'currentUserEmail' ici
+
+    if (this.isLocalStorageAvailable()) {
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('currentUserEmail');
+    } else {
+      console.error('localStorage is not available.');
+
+    }
     this.router.navigate(['/login']);
   }
 
@@ -108,4 +145,17 @@ export class ContactsComponent implements OnInit {
       return 0;
     });
   }
+
+
+  private isLocalStorageAvailable(): boolean {
+    try {
+      const test = 'test';
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
 }
